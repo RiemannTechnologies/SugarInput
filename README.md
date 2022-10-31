@@ -1,2 +1,3 @@
-# SugarInput
-SugarKit Input Library
+# SugarKit::Input
+Working with IOStreams, made easier.
+

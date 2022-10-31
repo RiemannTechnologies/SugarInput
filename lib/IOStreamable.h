@@ -5,9 +5,8 @@ namespace sugar{
 
     class UserIOStreamable{
     public:
-        virtual UserIOStreamable m_TryRead(char& resFlag);
+        virtual UserIOStreamable& m_TryRead(char& resFlag) = 0;
     };
-    //concept that allows int, unsigned ints, long longs, unsigned long longs, chars, and strings and IOStreamable
     template<typename T>
     concept IOStreamable =  std::is_same_v<T, int> ||
                             std::is_same_v<T, unsigned int> ||
