@@ -6,7 +6,6 @@
 
 namespace sugar {
 
-
     char m_IOStreamReader::m_TryRead(int &x) {
         char result = SUGAR_INPUT_OK;
         std::string _tmp;
@@ -37,10 +36,13 @@ namespace sugar {
 
         if (_tmp.length() > 1) {
             result |= SUGAR_INPUT_INVALID_CONTENT;
-            if(!(_tmp[0] <= 127 && _tmp[0] >= -128)){
+            if(!(_tmp[0] <= 127 && _tmp[0] >= -128))
+            {
                 result |= SUGAR_INPUT_OUT_OF_RANGE;
             }
-        } else {
+        }
+        else
+        {
             x = _tmp[0];
         }
         return result;
@@ -107,5 +109,13 @@ namespace sugar {
         char result = SUGAR_INPUT_OK;
         x.m_TryRead(result);
         return result;
+    }
+
+    void m_IOStreamReader::skip() {
+        input->clear();
+        while(this->skipChars.find(input->peek()) == std::string::npos || !input->eof())
+        {
+            input->ignore(1);
+        }
     }
 } // sugar

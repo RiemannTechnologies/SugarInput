@@ -3,7 +3,9 @@
 TEST(basicIOInt, OKParse) {
     std::stringstream input("12");
 
-    sugar::IOStreamReader reader(input);
+    sugar::IOStreamReader reader().
+            for_input(input);
+    reader = reader.skipInvalidInput(false);
     int x;
     reader.TryRead(x);
 

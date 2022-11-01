@@ -6,16 +6,18 @@
 namespace sugar {
 
     class m_IOStreamReader {
-        std::istream *input;
-    public:
 
-        explicit m_IOStreamReader(std::istream& _input): input(&_input) {}
+        const std::string skipChars = " \n";
+    public:
+        std::istream *input;
         char m_TryRead(int &x);
         char m_TryRead(char &x);
         char m_TryRead(unsigned &x);
         char m_TryRead(long long &x);
         char m_TryRead(unsigned long long &x);
         char m_TryRead(UserIOStreamable &x);
+
+        void skip();
     };
 
 } // sugar
