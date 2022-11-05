@@ -3,8 +3,6 @@ project(SugarInput)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_subdirectory(include/spdlog)
-
 include(FetchContent)
 FetchContent_Declare(
         googletest
