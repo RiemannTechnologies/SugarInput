@@ -2,14 +2,14 @@
 #include <istream>
 #include "../IOStreamable.h"
 #include "../Constants.h"
-
 namespace sugar {
 
-    class m_IOStreamReader {
+    struct m_IOStreamReader {
 
         const std::string skipChars = " \n";
-    public:
         std::istream *input;
+        explicit m_IOStreamReader(std::istream& _in) : input(&_in) {}
+
         char m_TryRead(int &x);
         char m_TryRead(char &x);
         char m_TryRead(unsigned &x);
@@ -18,6 +18,8 @@ namespace sugar {
         char m_TryRead(UserIOStreamable &x);
 
         void skip();
+        void skip(uint times);
+        void discard_line();
     };
 
 } // sugar

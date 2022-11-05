@@ -111,11 +111,21 @@ namespace sugar {
         return result;
     }
 
+    void m_IOStreamReader::skip(uint times)
+    {
+        for(int i=1; i<=times; i++)
+            skip();
+    }
     void m_IOStreamReader::skip() {
         input->clear();
-        while(this->skipChars.find(input->peek()) == std::string::npos || !input->eof())
-        {
-            input->ignore(1);
+        char c;
+        do{
+            input->get(c);
         }
+        while(this->skipChars.find(c) == std::string::npos && !input->eof());
+    }
+
+    void m_IOStreamReader::discard_line() {
+        input->ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 } // sugar

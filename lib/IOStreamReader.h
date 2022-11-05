@@ -10,16 +10,25 @@ namespace sugar
         bool m_skipInvalidInput = false;
     public:
         explicit IOStreamReader(std::istream& _in) : ioStreamReader(_in){}
+
         template<IOStreamable T>
         void TryRead(T& x){
-            char err = ioStreamReader.m_TryRead(x);
-            if(!err)
-                return;
-            else
-                if(!m_skipInvalidInput)
+            char err = 0;
+            do {
+                err = ioStreamReader.m_TryRead(x);
+                if (!err)
+                    return;
+                else if (!m_skipInvalidInput)
                     throw IOException(err);
-                else
+                else {
                     ioStreamReader.skip();
+                }
+            }
+            while(m_skipInvalidInput && err && ioStreamReader.input->peek()!=EOF);
+            if(ioStreamReader.input->peek() == EOF)
+            {
+                throw IOException(err);
+            }
         }
 
         IOStreamReader& skip_invalid_input(bool value)
