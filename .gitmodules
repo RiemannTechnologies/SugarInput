@@ -1,9 +1,3 @@
-[submodule "include/io"]
-	path = include/io
-	url = https://github.com/boostorg/io.git
-[submodule "include/config"]
-	path = include/config
-	url = https://github.com/boostorg/config.git
 [submodule "include/spdlog"]
 	path = include/spdlog
 	url = https://github.com/gabime/spdlog.git

@@ -11,13 +11,13 @@ namespace sugar {
         std::string message;
         char code;
         private:
-        void build_error_msg(char& errCode);
+        void build_error_msg(int &errCode);
     public:
-        explicit IOException(char& errCode) : code(errCode) {
+        explicit IOException(int errCode) : code(errCode) {
             build_error_msg(errCode);
         }
 
-        explicit IOException(char& errCode, std::string user_error_msg): code(errCode) {
+        explicit IOException(int errCode, std::string user_error_msg): code(errCode) {
             if(errCode == SUGAR_INPUT_OK)
                 return;
             if(errCode & SUGAR_INPUT_USER_ERROR)

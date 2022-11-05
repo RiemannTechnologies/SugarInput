@@ -5,7 +5,7 @@
 #include "IOException.h"
 
 namespace sugar{
-    void IOException::build_error_msg(char& errCode)
+    void IOException::build_error_msg(int &errCode)
     {
         message += "IOException: ";
         if(errCode & SUGAR_INPUT_OUT_OF_RANGE){

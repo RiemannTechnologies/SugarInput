@@ -5,7 +5,7 @@ namespace sugar{
 
     class UserIOStreamable{
     public:
-        virtual UserIOStreamable& m_TryRead(char& resFlag) = 0;
+        virtual char m_TryRead(std::istream& _in) = 0;
     };
     template<typename T>
     concept IOStreamable =  std::is_same_v<T, int> ||

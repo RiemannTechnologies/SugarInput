@@ -36,11 +36,6 @@ namespace sugar
             m_skipInvalidInput = value;
             return *this;
         }
-        IOStreamReader& for_input(std::istream& _in)
-        {
-            ioStreamReader.input = &_in;
-            return *this;
-        }
 
     };
 

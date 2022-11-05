@@ -3,14 +3,6 @@ project(SugarInput)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(Boost_USE_STATIC_LIBS ON)
-set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME OFF)
-
-
-
-add_subdirectory(include/io)
-add_subdirectory(include/config)
 add_subdirectory(include/spdlog)
 
 include(FetchContent)
@@ -38,8 +30,8 @@ target_include_directories(SugarInput_TEST PUBLIC
         "include/")
 target_compile_definitions(SugarInput_TEST PRIVATE GTEST_COLOR=yes)
 
-target_link_libraries(SugarInput PRIVATE Boost::io spdlog)
-target_link_libraries(SugarInput_TEST PRIVATE Boost::io spdlog  gtest_main)
+target_link_libraries(SugarInput PRIVATE spdlog)
+target_link_libraries(SugarInput_TEST PRIVATE spdlog gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(SugarInput_TEST)
