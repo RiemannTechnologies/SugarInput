@@ -24,14 +24,11 @@ file(GLOB LIB_TESTS
         tests/*.cpp)
 add_library(SugarInput SHARED ${LIB_SRC})
 add_executable(SugarInput_TEST ${LIB_SRC} ${LIB_TESTS})
-target_include_directories(SugarInput PUBLIC
-        "include/")
-target_include_directories(SugarInput_TEST PUBLIC
-        "include/")
+
 target_compile_definitions(SugarInput_TEST PRIVATE GTEST_COLOR=yes)
 
-target_link_libraries(SugarInput PRIVATE spdlog)
-target_link_libraries(SugarInput_TEST PRIVATE spdlog gtest_main)
+target_link_libraries(SugarInput PRIVATE )
+target_link_libraries(SugarInput_TEST PRIVATE gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(SugarInput_TEST)
