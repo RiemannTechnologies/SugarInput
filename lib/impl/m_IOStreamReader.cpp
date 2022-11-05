@@ -3,9 +3,9 @@
 //
 
 #include "m_IOStreamReader.h"
+#include "../IOException.h"
 
 namespace sugar {
-
 
     char m_IOStreamReader::m_TryRead(int &x) {
         char result = SUGAR_INPUT_OK;
@@ -37,10 +37,13 @@ namespace sugar {
 
         if (_tmp.length() > 1) {
             result |= SUGAR_INPUT_INVALID_CONTENT;
-            if(!(_tmp[0] <= 127 && _tmp[0] >= -128)){
+            if(!(_tmp[0] <= 127 && _tmp[0] >= -128))
+            {
                 result |= SUGAR_INPUT_OUT_OF_RANGE;
             }
-        } else {
+        }
+        else
+        {
             x = _tmp[0];
         }
         return result;
@@ -104,8 +107,46 @@ namespace sugar {
     }
 
     char m_IOStreamReader::m_TryRead(UserIOStreamable &x) {
+        char result = x.m_TryRead(*input);
+        return result;
+    }
+
+    void m_IOStreamReader::skip(unsigned times)
+    {
+        for(int i=1; i<=times; i++)
+            skip();
+    }
+    void m_IOStreamReader::skip() {
+        input->clear();
+        char c;
+        do{
+            input->get(c);
+            //handle quotes
+            if(c == '\"')
+            {
+                do{
+                    input->get(c);
+                }
+                while(c != '\"' && !input->eof());
+                if(c!= '\"')
+                {
+                    throw IOException(SUGAR_INPUT_INVALID_CONTENT, "Unbalanced quotes");
+                }
+            }
+        }
+        while(this->skipChars.find(c) == std::string::npos && !input->eof());
+    }
+
+    void m_IOStreamReader::discard_line() {
+        input->ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+
+    char m_IOStreamReader::m_TryRead(std::string &x) {
         char result = SUGAR_INPUT_OK;
-        x.m_TryRead(result);
+        *input >> std::quoted(x);
+        if(input->bad()){
+            result |= SUGAR_INPUT_UNKNOWN_ERROR;
+        }
         return result;
     }
 } // sugar

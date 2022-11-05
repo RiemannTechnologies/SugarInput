@@ -3,10 +3,10 @@
 TEST(basicIOInt, OKParse) {
     std::stringstream input("12");
 
-    sugar::IOStreamReader reader(input);
+    auto reader = sugar::IOStreamReader(input)
+            .skip_invalid_input(true);
     int x;
     reader.TryRead(x);
-
     ASSERT_EQ(x, 12);
 }
 
