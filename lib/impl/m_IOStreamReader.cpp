@@ -149,4 +149,40 @@ namespace sugar {
         }
         return result;
     }
+    char m_IOStreamReader::m_TryRead(double &x) {
+        char result = SUGAR_INPUT_OK;
+        std::string _tmp;
+        *input >> _tmp;
+
+        if(input->bad()){
+            result |= SUGAR_INPUT_UNKNOWN_ERROR;
+        }
+
+        try {
+            x = std::stod(_tmp);
+        } catch (std::invalid_argument &e) {
+            result |= SUGAR_INPUT_INVALID_CONTENT;
+        } catch (std::out_of_range &e) {
+            result |= SUGAR_INPUT_OUT_OF_RANGE;
+        }
+        return result;
+    }
+    char m_IOStreamReader::m_TryRead(float &x) {
+        char result = SUGAR_INPUT_OK;
+        std::string _tmp;
+        *input >> _tmp;
+
+        if(input->bad()){
+            result |= SUGAR_INPUT_UNKNOWN_ERROR;
+        }
+
+        try {
+            x = std::stof(_tmp);
+        } catch (std::invalid_argument &e) {
+            result |= SUGAR_INPUT_INVALID_CONTENT;
+        } catch (std::out_of_range &e) {
+            result |= SUGAR_INPUT_OUT_OF_RANGE;
+        }
+        return result;
+    }
 } // sugar
