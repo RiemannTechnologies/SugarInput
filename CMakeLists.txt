@@ -9,7 +9,7 @@ file(GLOB_RECURSE LIB_SRC
 enable_testing()
 add_library(SugarInput SHARED ${LIB_SRC} lib/Datatypes/Vector.h)
 
-if(ENABLE_TESTING)
+#TODO: Don't let GTest&Co run all the time
 include(FetchContent)
 FetchContent_Declare(
         googletest
@@ -26,7 +26,3 @@ target_link_libraries(SugarInput_TEST PRIVATE gtest_main)
 target_compile_definitions(SugarInput_TEST PRIVATE GTEST_COLOR=yes)
 include(GoogleTest)
 gtest_discover_tests(SugarInput_TEST)
-
-
-
-
