@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 20)
 file(GLOB_RECURSE LIB_SRC
         lib/*.cpp)
 enable_testing()
-add_library(SugarInput SHARED ${LIB_SRC} lib/Datatypes/Vector.h)
+add_library(SugarInput SHARED ${LIB_SRC})
 
 #TODO: Don't let GTest&Co run all the time
 include(FetchContent)
