@@ -4,7 +4,7 @@
 #include <iomanip>
 #include "../IOStreamable.h"
 #include "../Constants.h"
-namespace sugar {
+namespace Sugar::Input {
 
     struct m_IOStreamReader {
 
@@ -27,5 +27,5 @@ namespace sugar {
         void discard_line();
     };
 
-} // sugar
+} // Sugar
 

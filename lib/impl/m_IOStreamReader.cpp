@@ -5,7 +5,7 @@
 #include "m_IOStreamReader.h"
 #include "../IOException.h"
 
-namespace sugar {
+namespace Sugar::Input {
 
     char m_IOStreamReader::m_TryRead(int &x) {
         char result = SUGAR_INPUT_OK;
@@ -185,4 +185,4 @@ namespace sugar {
         }
         return result;
     }
-} // sugar
+} // Sugar

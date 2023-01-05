@@ -1,10 +1,9 @@
 #pragma once
 #include <concepts>
 #include <string>
-namespace sugar{
+namespace Sugar::Input{
 
-    class UserIOStreamable{
-    public:
+    struct UserIOStreamable{
         virtual char m_TryRead(std::istream& _in) = 0;
     };
     template<typename T>
