@@ -4,7 +4,7 @@
 
 #include "IOException.h"
 
-namespace sugar{
+namespace Sugar::Input{
     void IOException::build_error_msg(int &errCode)
     {
         message += "IOException: ";

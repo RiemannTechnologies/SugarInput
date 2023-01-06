@@ -6,7 +6,7 @@
 #define SUGAR_INPUT_OUT_OF_RANGE_STR "The data provided is out of range."
 #define SUGAR_INPUT_INVALID_CONTENT_STR "The data provided is invalid."
 #define SUGAR_INPUT_UNKNOWN_ERROR_STR "An unknown error occurred."
-namespace sugar {
+namespace Sugar::Input {
     class IOException : std::exception {
         std::string message;
         char code;

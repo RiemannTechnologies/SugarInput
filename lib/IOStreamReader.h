@@ -2,7 +2,7 @@
 
 #include "impl/m_IOStreamReader.h"
 #include "IOException.h"
-namespace sugar
+namespace Sugar::Input
 {
 
     class IOStreamReader{
@@ -20,7 +20,7 @@ namespace sugar
                     return;
                 else if (!m_skipInvalidInput)
                     throw IOException(err);
-                else {
+                else if(!(err&SUGAR_INPUT_NOSKIP))/* if we did not set the noskip flag, skip*/ {
                     ioStreamReader.skip();
                 }
             }

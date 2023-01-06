@@ -2,8 +2,8 @@
 
 #include "../lib/IOStreamReader.h"
 #include "../lib/IOStreamable.h"
-
-struct custom_data_type : public sugar::UserIOStreamable {
+using namespace Sugar::Input;
+struct custom_data_type : public UserIOStreamable {
     int x;
     int y;
     int z;
@@ -11,7 +11,7 @@ struct custom_data_type : public sugar::UserIOStreamable {
     char m_TryRead(std::istream &_in) override {
 
         char err = SUGAR_INPUT_OK;
-        sugar::m_IOStreamReader reader(_in);
+        m_IOStreamReader reader(_in);
         err = reader.m_TryRead(x);
         if (err)
             return err;
