@@ -1,7 +1,7 @@
 #pragma once
 #include "../IOStreamable.h"
 #include <vector>
-#include "../IOStreamReader.h"
+#include "../impl/m_IOStreamReader.h"
 namespace Sugar::Input{
 
   template <IOStreamable T>
@@ -25,7 +25,7 @@ namespace Sugar::Input{
       if(result != SUGAR_INPUT_OK)
       {
         result|=SUGAR_INPUT_NOSKIP;
-        data.erase();
+        data.erase(data.begin(),data.end());
       }
       return result;
     }

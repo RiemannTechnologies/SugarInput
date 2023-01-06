@@ -2,8 +2,10 @@
 // Created by thonk on 30.10.2022.
 //
 
+
+
 #include "m_IOStreamReader.h"
-#include "../IOException.h"
+
 
 namespace Sugar::Input {
 
@@ -16,8 +18,11 @@ namespace Sugar::Input {
             result |= SUGAR_INPUT_UNKNOWN_ERROR;
         }
 
+
         try {
-            x = std::stoi(_tmp);
+          if(!std::regex_match(_tmp,signedNumberFilter))
+            throw std::invalid_argument("Not a valid int");
+          x = std::stoi(_tmp);
         } catch (std::invalid_argument &e) {
             result |= SUGAR_INPUT_INVALID_CONTENT;
         } catch (std::out_of_range &e) {
@@ -59,7 +64,9 @@ namespace Sugar::Input {
         }
 
         try {
-            x = std::stoul(_tmp);
+          if(!std::regex_match(_tmp,unsignedNumberFilter))
+            throw std::invalid_argument("Not a valid unsigned int");
+          x = std::stoul(_tmp);
         } catch (std::invalid_argument &e) {
             result |= SUGAR_INPUT_INVALID_CONTENT;
         } catch (std::out_of_range &e) {
@@ -78,6 +85,8 @@ namespace Sugar::Input {
         }
 
         try {
+          if(!std::regex_match(_tmp,signedNumberFilter))
+            throw std::invalid_argument("Not a valid long long");
             x = std::stoll(_tmp);
         } catch (std::invalid_argument &e) {
             result |= SUGAR_INPUT_INVALID_CONTENT;
@@ -97,7 +106,9 @@ namespace Sugar::Input {
         }
 
         try {
-            x = std::stoull(_tmp);
+          if(!std::regex_match(_tmp,unsignedNumberFilter))
+            throw std::invalid_argument("Not a valid unsigned long long");
+          x = std::stoull(_tmp);
         } catch (std::invalid_argument &e) {
             result |= SUGAR_INPUT_INVALID_CONTENT;
         } catch (std::out_of_range &e) {
@@ -106,7 +117,7 @@ namespace Sugar::Input {
         return result;
     }
 
-    char m_IOStreamReader::m_TryRead(UserIOStreamable &x) {
+    char m_IOStreamReader::m_TryRead(UserIOStreamable &x) const {
         char result = x.m_TryRead(*input);
         return result;
     }
@@ -137,11 +148,11 @@ namespace Sugar::Input {
         while(this->skipChars.find(c) == std::string::npos && !input->eof());
     }
 
-    void m_IOStreamReader::discard_line() {
+    void m_IOStreamReader::discard_line() const {
         input->ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
-    char m_IOStreamReader::m_TryRead(std::string &x) {
+    char m_IOStreamReader::m_TryRead(std::string &x) const {
         char result = SUGAR_INPUT_OK;
         *input >> std::quoted(x);
         if(input->bad()){
@@ -159,7 +170,9 @@ namespace Sugar::Input {
         }
 
         try {
-            x = std::stod(_tmp);
+          if(!std::regex_match(_tmp,signedDecimalFilter))
+            throw std::invalid_argument("Not a valid double");
+          x = std::stod(_tmp);
         } catch (std::invalid_argument &e) {
             result |= SUGAR_INPUT_INVALID_CONTENT;
         } catch (std::out_of_range &e) {
@@ -177,7 +190,9 @@ namespace Sugar::Input {
         }
 
         try {
-            x = std::stof(_tmp);
+          if(!std::regex_match(_tmp,signedDecimalFilter))
+            throw std::invalid_argument("Not a valid float");
+          x = std::stof(_tmp);
         } catch (std::invalid_argument &e) {
             result |= SUGAR_INPUT_INVALID_CONTENT;
         } catch (std::out_of_range &e) {

@@ -1,6 +1,6 @@
 #pragma once
 #include "../IOStreamable.h"
-#include "../IOStreamReader.h"
+#include "../impl/m_IOStreamReader.h"
 #include "../Constants.h"
 namespace Sugar::Input{
 
