@@ -3,15 +3,13 @@
 //
 
 #include "PhoneNumber.h"
-char Sugar::Input::PhoneNumber::m_TryRead(std::istream &_in) {
-  char result = SUGAR_INPUT_OK;
-
-  m_IOStreamReader reader(_in);
-
-  result = reader.m_TryRead(value);
-
+void Sugar::Input::PhoneNumber::Parse(Sugar::Input::raw_input _input) {
+  if(_input.size()>1)
+    throw std::invalid_argument("Too many arguments for PhoneNumber");
+  auto t_value = _input[0];
   std::regex filter(R"(^[+]{1}(?:[0-9\-\(\)\/\.]\s?){6, 15}[0-9]{1}$)");
-  if(!std::regex_match(value,filter))
-    result|=SUGAR_INPUT_INVALID_CONTENT;
-  return result;
+  if(!std::regex_match(t_value,filter))
+    throw std::invalid_argument("Invalid content in PhoneNumber");
+  value = t_value;
+
 }

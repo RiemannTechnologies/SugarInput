@@ -1,16 +1,18 @@
 #include "Name.h"
 
-char Sugar::Input::Name::m_TryRead(std::istream &_in) {
-  m_IOStreamReader reader(_in);
-  char retval =  reader.m_TryRead(value);
 
-  for(const char& c: value)
+void Sugar::Input::Name::Parse(raw_input _input) {
+
+  if(_input.size()>1)
+    throw std::invalid_argument("Too many arguments for Name");
+  auto t_value = _input[0];
+  for(const char& c: t_value)
   {
     if(!std::isalpha(c))
     {
-      retval |= SUGAR_INPUT_INVALID_CONTENT;
-      break;
+        throw std::invalid_argument("Invalid character in Name");
     }
   }
-  return retval;
+  value = t_value;
+
 }
