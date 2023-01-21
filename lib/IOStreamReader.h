@@ -1,43 +1,33 @@
 #pragma once
 
-#include "impl/m_IOStreamReader.h"
-#include "IOException.h"
-namespace Sugar::Input
-{
+#include "Reader.h"
+#include "Parser.h"
+namespace Sugar::Input {
 
-    class IOStreamReader{
-        m_IOStreamReader ioStreamReader;
-        bool m_skipInvalidInput = false;
-    public:
-        explicit IOStreamReader(std::istream& _in) : ioStreamReader(_in){}
+    class IOStreamReader {
+
+
+
+        std::istream *input;
+     public:
+        explicit IOStreamReader(std::istream& _in) : input(&_in) {}
 
         template<IOStreamable T>
-        void TryRead(T& x){
-            char err = 0;
-            do {
-                err = ioStreamReader.m_TryRead(x);
-                if (!err)
-                    return;
-                else if (!m_skipInvalidInput)
-                    throw IOException(err);
-                else if(!(err&SUGAR_INPUT_NOSKIP))/* if we did not set the noskip flag, skip*/ {
-                    ioStreamReader.skip();
-                }
-            }
-            while(m_skipInvalidInput && err && ioStreamReader.input->peek()!=EOF);
-            if(ioStreamReader.input->peek() == EOF)
+        T Read() {
+            T result;
+            if constexpr (!std::is_base_of_v<UserIOStreamable, T>)//make this less sobful
             {
-                throw IOException(err);
+                Parser::Parse(result,Reader::Read(input)[0]);
             }
+            else
+            {
+                Parser::Parse(result,Reader::Read(input));
+            }
+            return result;
         }
 
-        IOStreamReader& skip_invalid_input(bool value)
-        {
-            m_skipInvalidInput = value;
-            return *this;
-        }
 
     };
 
+} // Sugar
 
-}

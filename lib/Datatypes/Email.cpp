@@ -3,14 +3,16 @@
 //
 
 #include "Email.h"
-char Sugar::Input::Email::m_TryRead(std::istream &_in) {
-  char result = SUGAR_INPUT_OK;
-  m_IOStreamReader reader(_in);
-  result = reader.m_TryRead(value);
 
-  std::regex match(R"((\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+)");
+namespace Sugar::Input {
+  void Email::Parse(raw_input _input) {
+    if(_input.size() > 1)
+      throw std::invalid_argument("Too many arguments for Email");
 
-  if(!std::regex_match(value,match))
-    result |= SUGAR_INPUT_INVALID_CONTENT;
-  return result;
-}
+    std::regex match(R"((\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+)");
+    if (!std::regex_match(_input[0], match))
+      throw std::invalid_argument("Invalid Email");
+
+    value = _input[0];
+  }
+};
