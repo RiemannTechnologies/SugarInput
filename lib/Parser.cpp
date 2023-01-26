@@ -71,8 +71,11 @@ void Parser::Parse(double& destination, std::string_view input)
     throw std::invalid_argument("Not a valid double");
   destination = std::stod(_tmp);
 }
-void Parser::Parse(UserIOStreamable& destination, raw_input input)
-{
+
+void Parser::Parse(UserIOStreamable &destination, raw_input input) {
   destination.Parse(input);
+
 }
+
+
 }
