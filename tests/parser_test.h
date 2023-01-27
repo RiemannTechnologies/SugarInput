@@ -15,6 +15,8 @@ class ParserTest : public ::testing::Test {
   std::uint64_t ulonglong_test = 0;
   std::string input;
   char char_test = 0;
+  bool bool_test = false;
+
   void SetUp() override{
     string_test = "";
     float_test = 0;
@@ -25,5 +27,6 @@ class ParserTest : public ::testing::Test {
     ulonglong_test = 0;
     char_test = 0;
     input = "";
+	bool_test = false;
   }
 };
