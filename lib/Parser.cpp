@@ -76,6 +76,28 @@ void Parser::Parse(UserIOStreamable &destination, raw_input input) {
   destination.Parse(input);
 
 }
-
+void Parser::Parse(bool& destination, std::string_view input)
+{
+  std::string _tmp(input);
+  if(_tmp == "true")
+  {
+	destination = true;
+  }
+  else if(_tmp == "false")
+  {
+	destination = false;
+  }
+  else
+  {
+  	int i;
+	Parse(i, _tmp);
+	if(i == 0)
+		destination = false;
+	if(i == 1)
+		destination = true;
+	else
+		throw std::invalid_argument("Not a valid bool");
+  }
+}
 
 }

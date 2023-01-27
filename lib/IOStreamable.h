@@ -22,6 +22,9 @@ namespace Sugar::Input{
       std::is_same_v<T, unsigned long long>  ||
       std::is_same_v<T, char> ||
       std::is_same_v<T, std::string> ||
+	  std::is_same_v<T, float> ||
+	  std::is_same_v<T, double> ||
+	  std::is_same_v<T, bool> ||
       std::is_base_of_v<UserIOStreamable,T>;
 
 }
