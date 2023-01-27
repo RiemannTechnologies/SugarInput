@@ -2,10 +2,11 @@
 #include "IOStreamable.h"
 #include <vector>
 #include "IOStreamReader.h"
+#include "Container.h"
 namespace Sugar::Input{
 
   template <IOStreamable T>
-  struct Vector : UserIOStreamable
+  struct Vector : UserIOStreamable, Containter
   {
     std::vector<T> data;
     raw_input Read(std::istream* input) override
